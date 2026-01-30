@@ -1,0 +1,20 @@
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+
+# Caché
+.uv_cache/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright_cache/
+__pycache__/
+
+# Variables de entorno
+.env
+.env.*
+
+# Output
+results

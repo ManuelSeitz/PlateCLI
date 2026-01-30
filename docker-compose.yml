@@ -1,0 +1,19 @@
+services:
+  python:
+    build: .
+    container_name: python
+    command: sleep infinity
+    ports:
+      - "8000:8000"
+    restart: no
+    volumes:
+      - .:/app
+
+  label-studio:
+    image: heartexlabs/label-studio:latest
+    container_name: label-studio
+    ports:
+      - "8080:8080"
+    depends_on:
+      - python
+    restart: no
