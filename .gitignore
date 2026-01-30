@@ -19,6 +19,12 @@ __pycache__/
 .env.local
 .env.shared
 
+# Distribución y empaquetado
+dist/
+build/
+*.egg-info/
+*.egg
+
 # Logs y archivos temporales
 *.log
 .pytest_cache/
