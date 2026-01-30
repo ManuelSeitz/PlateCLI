@@ -2,7 +2,7 @@ from typing import Any
 
 from rich.console import Console, RenderableType
 
-from utils.panel import get_panel
+from plate_cli.utils.panel import get_panel
 
 
 def show_error(renderable: RenderableType, **kwargs: Any):

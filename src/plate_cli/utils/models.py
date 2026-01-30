@@ -7,8 +7,8 @@ from rich.live import Live
 from rich.spinner import Spinner
 from ultralytics.models import YOLO
 
-from utils.constants import YOLO_MODEL_PATH
-from utils.panel import get_panel
+from plate_cli.utils.constants import YOLO_MODEL_PATH
+from plate_cli.utils.panel import get_panel
 
 
 def load_models() -> Tuple[YOLO, Reader]:

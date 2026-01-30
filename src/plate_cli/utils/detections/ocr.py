@@ -5,8 +5,8 @@ from easyocr.easyocr import Reader
 from PIL.Image import Image as PILImage
 from ultralytics.engine.results import Boxes
 
-from utils.constants import OCR_BLOCKLIST
-from utils.detections.preprocess_image import preprocess_image
+from plate_cli.utils.constants import OCR_BLOCKLIST
+from plate_cli.utils.detections.preprocess_image import preprocess_image
 
 
 def run_ocr(reader: Reader, image: PILImage, box: Boxes) -> str:

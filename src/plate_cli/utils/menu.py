@@ -9,10 +9,10 @@ from prompt_toolkit.layout.containers import HSplit, Window
 from prompt_toolkit.layout.controls import FormattedTextControl
 from rich.console import Console
 
-from features.camera import open_camera
-from features.exit import exit_app
-from features.load_images import load_images
-from utils.panel import get_panel
+from plate_cli.features.camera import open_camera
+from plate_cli.features.exit import exit_app
+from plate_cli.features.load_images import load_images
+from plate_cli.utils.panel import get_panel
 
 OPTIONS: Dict[str, Callable[[], None]] = {
     "Cargar imágenes": load_images,

@@ -7,11 +7,11 @@ from rich.live import Live
 from rich.table import Table
 from ultralytics.engine.results import Results
 
-from utils.detections.label import get_label
-from utils.detections.ocr import run_ocr
-from utils.error import show_error
-from utils.models import load_models
-from utils.panel import get_panel
+from plate_cli.utils.detections.label import get_label
+from plate_cli.utils.detections.ocr import run_ocr
+from plate_cli.utils.error import show_error
+from plate_cli.utils.models import load_models
+from plate_cli.utils.panel import get_panel
 
 
 def open_camera():

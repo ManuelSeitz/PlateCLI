@@ -1,6 +1,6 @@
 from rich.console import Console
 
-from utils.panel import get_panel
+from plate_cli.utils.panel import get_panel
 
 
 def exit_app():
