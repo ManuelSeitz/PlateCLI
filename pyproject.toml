@@ -19,9 +19,19 @@ dev = [
     "pre-commit>=4.5.1",
 ]
 
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "$version"
 version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
+
+[project.scripts]
+plate-cli = "plate_cli.main:main"
