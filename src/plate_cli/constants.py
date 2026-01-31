@@ -19,6 +19,6 @@ COUNTRIES: Dict[str, str] = {
     "venezuela": "caracas",
 }
 
-YOLO_MODEL_PATH = (Path(__file__).parent / "../weights/v1/model.pt").resolve()
+YOLO_MODEL_PATH = (Path(__file__).parent / "weights/v1/model.pt").resolve()
 
 OCR_BLOCKLIST = "¡!¿?@#$%&/()=?¿[]{}.,;:_+'*<>|°\"\\"

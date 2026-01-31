@@ -9,22 +9,14 @@ from prompt_toolkit.layout.containers import HSplit, Window
 from prompt_toolkit.layout.controls import FormattedTextControl
 from rich.console import Console
 
-from plate_cli.features.camera import open_camera
-from plate_cli.features.exit import exit_app
-from plate_cli.features.load_images import load_images
-from plate_cli.utils.panel import get_panel
-
-OPTIONS: Dict[str, Callable[[], None]] = {
-    "Cargar imágenes": load_images,
-    "Detectar en tiempo real": open_camera,
-    "Salir": exit_app,
-}
+from plate_cli.cli import CLI
 
 
 class Menu:
-    def __init__(self):
-        self.options = list(OPTIONS.keys())
+    def __init__(self, options: Dict[str, Callable[[], None]]):
+        self.options = list(options.keys())
         self.selected_index = 0
+        self.cli = CLI()
 
         self.buffer = io.StringIO()
         self.console = Console(
@@ -70,7 +62,7 @@ class Menu:
                 menu_items.append(f"  {option}")
 
         content = "\n".join(menu_items)
-        panel = get_panel(
+        panel = self.cli.build_panel(
             content,
             subtitle="Usa ⬆⬇ y Enter",
             width=40,
