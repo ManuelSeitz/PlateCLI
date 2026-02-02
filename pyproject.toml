@@ -5,6 +5,7 @@ description = ""
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "albumentations>=2.0.8",
     "easyocr>=1.7.2",
     "prompt-toolkit>=3.0.52",
     "rich>=14.3.1",
