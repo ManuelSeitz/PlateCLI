@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-from src.utils.constants import COUNTRIES
+from src.plate_cli.constants import COUNTRIES
 
 
 def scrap_images(country: str, limit: int = 100):
