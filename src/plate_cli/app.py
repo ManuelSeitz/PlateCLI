@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 import cv2
@@ -57,10 +58,25 @@ class App:
             self.cli.error(":x: La ruta no existe")
             return
 
-        if path.is_file():
-            self.inference_from_file(path)
+        now = datetime.now()
 
-    def inference_from_file(self, path: Path):
+        output_dir = Path(f"results/{now.strftime('%Y%m%d%H%M%S')}")
+
+        if path.is_file():
+            self.inference_from_file(path, output_dir)
+        else:
+            files = [
+                f
+                for f in path.iterdir()
+                if f.is_file() and f.suffix in ACCEPTED_IMAGE_FORMATS
+            ]
+            if len(files) == 0:
+                self.cli.error(":x: No se han encontrado imágenes en la carpeta")
+                return
+            for file in files:
+                self.inference_from_file(file, output_dir)
+
+    def inference_from_file(self, path: Path, output_dir: Path):
         if path.suffix not in ACCEPTED_IMAGE_FORMATS:
             self.cli.error(":x: Extensión no soportada")
             return
@@ -68,7 +84,7 @@ class App:
         image = Image.open(path)
 
         with self.cli.status(
-            Spinner("dots", "[bold]Detectando matrícula...")
+            Spinner("dots", f"[bold]Detectando matrícula en {path.name}...")
         ) as status:
             result = self.models.inference(image)[0]
 
@@ -88,7 +104,7 @@ class App:
 
         image = Image.fromarray(draw_box(np.array(image), result, text))
 
-        saved_image_path = self._save_image(image, class_name, text)
+        saved_image_path = self._save_image(image, class_name, text, output_dir)
         self.cli.success(
             f"[bold green]✓[/] Imagen guardada en: [cyan]{saved_image_path}"
         )
@@ -140,11 +156,12 @@ class App:
     def exit(self) -> None:
         self.cli.print("[bold]¡Que tenga un buen día! :waving_hand:[/]", width=40)
 
-    def _save_image(self, image: Image.Image, class_name: str, text: str) -> Path:
+    def _save_image(
+        self, image: Image.Image, class_name: str, text: str, output_dir: Path
+    ) -> Path:
         filename = f"{class_name}_{text.replace(' ', '_')}.jpg"
 
-        output_dir = Path("results")
-        output_dir.mkdir(exist_ok=True)
+        output_dir.mkdir(exist_ok=True, parents=True)
 
         save_path = output_dir / filename
 
