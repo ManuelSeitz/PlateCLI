@@ -36,5 +36,5 @@ build/
 results
 
 # Modelo YOLO
-dataset/
-images/
+/dataset/
+/images/
