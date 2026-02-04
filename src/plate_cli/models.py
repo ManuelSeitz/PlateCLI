@@ -1,4 +1,4 @@
-from typing import List, cast
+from typing import Any, List, cast
 
 import easyocr
 import numpy as np
@@ -9,7 +9,12 @@ from PIL.ImageFile import ImageFile
 from ultralytics.engine.results import Boxes, Results
 from ultralytics.models import YOLO
 
-from plate_cli.constants import OCR_BLOCKLIST, YOLO_MODEL_PATH
+from plate_cli.constants import (
+    CONF_THRESHOLD,
+    NMS_THRESHOLD,
+    OCR_BLOCKLIST,
+    YOLO_MODEL_PATH,
+)
 from plate_cli.utils.preprocess_image import preprocess_image
 
 
@@ -24,10 +29,15 @@ class Models:
     def load_reader(self) -> None:
         self.reader = easyocr.Reader(["es", "pt"], gpu=False, verbose=False)
 
-    def inference(self, image: ImageFile | MatLike) -> List[Results]:
+    def inference(self, image: ImageFile | MatLike, **kwargs: Any) -> List[Results]:
         if self.yolo is None:
             raise RuntimeError("El modelo YOLO no ha sido cargado.")
-        results = cast(List[Results], self.yolo(image, verbose=False))
+        results = cast(
+            List[Results],
+            self.yolo(
+                image, verbose=False, conf=CONF_THRESHOLD, iou=NMS_THRESHOLD, **kwargs
+            ),
+        )
         return results
 
     def get_text_from_image(self, image: Image, box: Boxes) -> str:

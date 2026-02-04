@@ -127,7 +127,7 @@ class App:
                     if not return_value:
                         break
 
-                    results = self.models.inference(frame)
+                    results = self.models.inference(frame, stream=True)
 
                     for result in results:
                         if result.boxes:
