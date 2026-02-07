@@ -33,7 +33,8 @@ build/
 .pyright_cache/
 
 # Output
-results
+/results/
+/preprocess/
 
 # Modelo YOLO
 /dataset/

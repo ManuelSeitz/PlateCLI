@@ -40,12 +40,12 @@ class Models:
         )
         return results
 
-    def get_text_from_image(self, image: Image, box: Boxes) -> str:
+    def get_text_from_image(self, image: Image, box: Boxes, country: str) -> str:
         x_min, y_min, x_max, y_max = cast(List[float], box.xyxy[0].tolist())  # type: ignore
         crop = image.crop((x_min, y_min, x_max, y_max))
         np_crop = np.array(crop)
 
-        preprocessed = preprocess_image(np_crop)
+        preprocessed = preprocess_image(np_crop, country)
 
         text = self.reader.readtext(  # type: ignore
             preprocessed,

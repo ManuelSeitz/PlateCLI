@@ -24,4 +24,11 @@ YOLO_MODEL_PATH = (Path(__file__).parent / "models/v1/weights.pt").resolve()
 CONF_THRESHOLD = 0.63  # Limita el nivel de confianza aceptable
 NMS_THRESHOLD = 0.5  # Evita detecciones solapadas
 
-OCR_BLOCKLIST = "¡!¿?@#$%&/()=?¿[]{}.,;:_+'*<>|°\"\\"
+OCR_BLOCKLIST = (
+    "¡!¿?@#$%&/()=?¿[]{}-.,;:_+'*<>|°\"\\"
+    "áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙâêîôûÂÊÎÔÛäëïöüÄËÏÖÜ"
+    "ñÑçÇ"
+    "¬~`^"
+    "€£¥$¢"
+    "±÷×¶§©®™ª"
+)

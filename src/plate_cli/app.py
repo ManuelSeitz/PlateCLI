@@ -98,9 +98,9 @@ class App:
                 )
             )
 
-        text = self.models.get_text_from_image(image, result.boxes[0])
         class_id = int(result.boxes[0].cls.item())
         class_name = result.names[class_id]
+        text = self.models.get_text_from_image(image, result.boxes[0], class_name)
 
         image = Image.fromarray(draw_box(np.array(image), result, text))
 
@@ -137,12 +137,14 @@ class App:
                             img_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                             pil_img = Image.fromarray(img_rgb)
 
-                            text = self.models.get_text_from_image(pil_img, box)
+                            conf = f"{box.conf.item():.2f}"
+                            class_name = result.names[int(box.cls.item())]
+                            text = self.models.get_text_from_image(
+                                pil_img, box, class_name
+                            )
 
                             draw_box(frame, result, text)
 
-                            conf = f"{box.conf.item():.2f}"
-                            class_name = result.names[int(box.cls.item())]
                             table.add_row(class_name, text, conf)
                             status.update(self.cli.build_panel(table, title="PlateCLI"))
 
