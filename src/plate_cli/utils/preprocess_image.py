@@ -44,7 +44,7 @@ def preprocess_image(image: NDArray[np.uint8], country: str) -> NDArray[np.uint8
     final_img = cv2.morphologyEx(cleaned, cv2.MORPH_CLOSE, kernel)
 
     # Descomentar para debug
-    save_preprocess(final_img, country)
+    # save_preprocess(final_img, country)
 
     return cast(NDArray[np.uint8], final_img)
 
