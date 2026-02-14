@@ -1,5 +1,6 @@
 from datetime import datetime
 from pathlib import Path
+from time import sleep
 
 import cv2
 import numpy as np
@@ -38,12 +39,17 @@ class App:
             self.models.load_reader()
 
     def run(self) -> None:
-        menu = Menu(self.options)
-        choice = menu.run()
-        if choice in self.options:
-            self.options[choice]()
-        else:
-            self.cli.error("La opción no existe")
+        while True:
+            menu = Menu(self.options)
+            choice = menu.run()
+            if choice in self.options:
+                self.options[choice]()
+                if choice == "Salir":
+                    break
+            else:
+                self.cli.error("La opción no existe")
+            # Delay para evitar un salto rápido
+            sleep(1)
 
     def process_path(self) -> None:
         prompt = self.cli.prompt("Seleccionar lote o imagen")
