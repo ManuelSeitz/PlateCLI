@@ -43,7 +43,7 @@ class App:
         if choice in self.options:
             self.options[choice]()
         else:
-            self.cli.error(":x: La opción no existe")
+            self.cli.error("La opción no existe")
 
     def process_path(self) -> None:
         prompt = self.cli.prompt("Seleccionar lote o imagen")
@@ -55,7 +55,7 @@ class App:
         path = Path(path)
 
         if not path.exists():
-            self.cli.error(":x: La ruta no existe")
+            self.cli.error("La ruta no existe")
             return
 
         now = datetime.now()
@@ -71,14 +71,14 @@ class App:
                 if f.is_file() and f.suffix in ACCEPTED_IMAGE_FORMATS
             ]
             if len(files) == 0:
-                self.cli.error(":x: No se han encontrado imágenes en la carpeta")
+                self.cli.error("No se han encontrado imágenes en la carpeta")
                 return
             for file in files:
                 self.inference_from_file(file, output_dir)
 
     def inference_from_file(self, path: Path, output_dir: Path):
         if path.suffix not in ACCEPTED_IMAGE_FORMATS:
-            self.cli.error(":x: Extensión no soportada")
+            self.cli.error("Extensión no soportada")
             return
 
         image = Image.open(path)
@@ -89,7 +89,7 @@ class App:
             result = self.models.inference(image)[0]
 
             if not result.boxes:
-                self.cli.error(":x: No se encontró ninguna matrícula")
+                self.cli.error("No se encontró ninguna matrícula")
                 return
 
             status.update(
@@ -112,7 +112,7 @@ class App:
     def run_camera(self) -> None:
         capture = cv2.VideoCapture(0)
         if not capture.isOpened():
-            self.cli.error(":x: No se pudo abrir la cámara")
+            self.cli.error("No se pudo abrir la cámara")
             return
 
         table = Table(title="Detección en tiempo real", show_header=True)

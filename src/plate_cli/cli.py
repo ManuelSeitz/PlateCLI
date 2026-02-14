@@ -5,6 +5,7 @@ from rich.console import Console, RenderableType
 from rich.live import Live
 from rich.panel import Panel
 from rich.spinner import Spinner
+from rich.text import Text
 
 from plate_cli.utils.prompt import Prompt
 
@@ -41,10 +42,11 @@ class CLI:
 
     def error(self, renderable: RenderableType, **kwargs: Any) -> None:
         panel = self.build_panel(
-            renderable,
+            Text.from_markup(":x: ") + renderable,
             title="[bold red]PlateCLI",
             border_style="red",
-            width=40,
+            padding=(1, 4, 1, 2),
+            expand=False,
             **kwargs,
         )
         self.console.print(panel)
@@ -59,7 +61,7 @@ class CLI:
         options: Dict[str, Any] = {
             "title": "[bold cyan]PlateCLI",
             "border_style": "bright_blue",
-            "padding": (1, 2),
+            "padding": (1, 8, 1, 2),
         }
         options.update(kwargs)
 
