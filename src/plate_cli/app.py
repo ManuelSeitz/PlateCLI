@@ -127,10 +127,12 @@ class App:
                     if not return_value:
                         break
 
-                    results = self.models.inference(frame, stream=True)
+                    results = self.models.inference(frame)
 
+                    found = False
                     for result in results:
                         if result.boxes:
+                            found = True
                             box = result.boxes[0]
 
                             # Convertir frame a imagen RGB y luego a imagen PIL para usarse en el OCR
@@ -139,6 +141,7 @@ class App:
 
                             conf = f"{box.conf.item():.2f}"
                             class_name = result.names[int(box.cls.item())]
+
                             text = self.models.get_text_from_image(
                                 pil_img, box, class_name
                             )
@@ -146,7 +149,9 @@ class App:
                             draw_box(frame, result, text)
 
                             table.add_row(class_name, text, conf)
-                            status.update(self.cli.build_panel(table, title="PlateCLI"))
+
+                    if found:
+                        status.update(table)
 
                     cv2.imshow("Presiona 'q' para salir", frame)
                     if cv2.waitKey(1) & 0xFF == ord("q"):

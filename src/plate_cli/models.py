@@ -27,7 +27,7 @@ class Models:
         self.yolo = YOLO(YOLO_MODEL_PATH)
 
     def load_reader(self) -> None:
-        self.reader = easyocr.Reader(["es", "pt"], gpu=False, verbose=False)
+        self.reader = easyocr.Reader(["es", "pt"], gpu=True, verbose=False)
 
     def inference(self, image: ImageFile | MatLike, **kwargs: Any) -> List[Results]:
         if self.yolo is None:
@@ -53,5 +53,8 @@ class Models:
             paragraph=True,
             blocklist=OCR_BLOCKLIST,
         )
+
+        if not text:
+            return ""
 
         return cast(str, text[-1])

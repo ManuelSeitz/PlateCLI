@@ -85,6 +85,12 @@ class StatusHandler:
 
     def update(self, renderable: RenderableType, **new_options: Any):
         self.renderable = renderable
+
+        if isinstance(renderable, Panel):
+            self.renderable = renderable.renderable
+        else:
+            self.renderable = renderable
+
         self.options.update(new_options)
         if self.live:
             self.live.update(self.get_panel())
