@@ -15,6 +15,7 @@ from plate_cli.constants import (
     OCR_BLOCKLIST,
     YOLO_MODEL_PATH,
 )
+from plate_cli.utils.normalize import normalize_text
 from plate_cli.utils.preprocess_image import preprocess_image
 
 
@@ -57,4 +58,6 @@ class Models:
         if not text:
             return ""
 
-        return cast(str, text[-1])
+        normalized_text = normalize_text(cast(str, text[-1]), country)
+
+        return normalized_text
